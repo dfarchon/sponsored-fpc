@@ -1,0 +1,9 @@
+{
+  "name": "example-project",
+  "maxFeeWei": "1000000000000000",
+  "allowedTargets": [{ "name": "App", "address": "env:APP_CONTRACT_ADDRESS" }],
+  "allowedAccountClasses": [
+    { "name": "Account", "classId": "env:ACCOUNT_CLASS_ID" }
+  ],
+  "requireUnpublishedAccounts": true
+}

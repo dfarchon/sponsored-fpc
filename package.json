@@ -1,0 +1,51 @@
+{
+  "name": "@dfarchon/sponsored-fpc",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "sponsored-fpc": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./artifact": {
+      "types": "./dist/artifacts/SponsoredFpc.d.ts",
+      "import": "./dist/artifacts/SponsoredFpc.js"
+    }
+  },
+  "files": [
+    "dist",
+    "contracts",
+    "Nargo.toml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "pnpm contract:build && tsc -p tsconfig.json",
+    "contract:build": "aztec compile && aztec codegen ./target -o ./target --force && mkdir -p ./src/artifacts && cp ./target/SponsoredFpc.ts ./target/sponsored_fpc-SponsoredFpc.json ./src/artifacts/",
+    "contract:test": "aztec-nargo test --workspace",
+    "format": "aztec-nargo fmt --workspace && prettier --write .",
+    "format:check": "aztec-nargo fmt --workspace --check && prettier --check .",
+    "test": "pnpm contract:test && tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@alejoamiras/quota-paymaster": "5.0.1-revision.2",
+    "@aztec/aztec.js": "5.2.0",
+    "@aztec/entrypoints": "5.2.0",
+    "@aztec/stdlib": "5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.7",
+    "prettier": "3.7.4",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": "24.19.0",
+    "pnpm": "11.28.0"
+  },
+  "packageManager": "pnpm@11.28.0"
+}
